@@ -243,7 +243,7 @@ public class Notes {
 				case SECRETS_FLOOR: return Messages.get(Level.Feeling.class, "secrets_desc");
 
 				case SHOP:
-					if (depth == 20)    return Messages.get(ImpShopkeeper.class, "desc");
+					if (depth == 12)    return Messages.get(ImpShopkeeper.class, "desc");
 					else                return Messages.get(Shopkeeper.class, "desc");
 				case ALCHEMY:           return Messages.get(Level.class, "alchemy_desc");
 				case GARDEN:            return Messages.get(Foliage.class, "desc");

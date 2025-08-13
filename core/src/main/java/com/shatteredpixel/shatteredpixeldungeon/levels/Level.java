@@ -231,7 +231,8 @@ public abstract class Level implements Bundlable {
 				//TODO while this does significantly reduce this challenge's levelgen impact, it doesn't quite remove it
 				//for 0 levelgen impact, we need to do something like give the player all SOU, but nerf them
 				//or give a random scroll (from a separate RNG) instead of every 2nd SOU
-				if (!Dungeon.isChallenged(Challenges.NO_SCROLLS) || Dungeon.LimitedDrops.UPGRADE_SCROLLS.count%2 != 0){
+				if (!Dungeon.isChallenged(Challenges.NO_SCROLLS)
+						|| (Dungeon.depth != 5 && Dungeon.depth != 11)) {
 					addItemToSpawn(new ScrollOfUpgrade());
 				}
 			}

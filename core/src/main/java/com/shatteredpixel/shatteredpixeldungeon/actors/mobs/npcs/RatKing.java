@@ -92,14 +92,14 @@ public class RatKing extends NPC {
 
 	@Override
 	protected boolean act() {
-		if (Dungeon.depth < 5){
+		if (Dungeon.depth < 3){
 			if (pos == Dungeon.level.exit()){
 				destroy();
 				sprite.killAndErase();
 			} else {
 				target = Dungeon.level.exit();
 			}
-		} else if (Dungeon.depth > 5){
+		} else if (Dungeon.depth > 3){
 			if (pos == Dungeon.level.entrance()){
 				destroy();
 				sprite.killAndErase();

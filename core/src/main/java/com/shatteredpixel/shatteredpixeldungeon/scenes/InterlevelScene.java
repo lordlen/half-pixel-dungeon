@@ -137,8 +137,8 @@ public class InterlevelScene extends PixelScene {
 					else                        loadingDepth = Dungeon.depth+1;
 					if (Statistics.deepestFloor >= loadingDepth) {
 						fadeTime = FAST_FADE;
-					} else if (loadingDepth == 6 || loadingDepth == 11
-							|| loadingDepth == 16 || loadingDepth == 21 || loadingDepth == 26) {
+					} else if (loadingDepth == 4 || loadingDepth == 7
+							|| loadingDepth == 10 || loadingDepth == 13 || loadingDepth == 16) {
 						fadeTime = SLOW_FADE;
 					}
 				}
@@ -157,7 +157,7 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		//flush the texture cache whenever moving between regions, helps reduce memory load
-		int region = (int)Math.ceil(loadingDepth / 5f);
+		int region = (int)Math.ceil(loadingDepth / 3f);
 		if (region != lastRegion){
 			TextureCache.clear();
 			lastRegion = region;
@@ -264,7 +264,7 @@ public class InterlevelScene extends PixelScene {
 		add(loadingText);
 
 		if (mode == Mode.DESCEND && lastRegion <= 5 && !DeviceCompat.isDebug()){
-			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 5 == 1)){
+			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 3 == 1)){
 					storyMessage = PixelScene.renderTextBlock(Document.INTROS.pageBody(region), 6);
 					storyMessage.maxWidth( PixelScene.landscape() ? 180 : 125);
 					storyMessage.setPos((Camera.main.width-storyMessage.width())/2f, (Camera.main.height-storyMessage.height())/2f);

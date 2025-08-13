@@ -769,7 +769,7 @@ public class Generator {
 	}
 
 	public static Armor randomArmor(){
-		return randomArmor(Dungeon.depth / 5);
+		return randomArmor(Dungeon.depth / 3);
 	}
 	
 	public static Armor randomArmor(int floorSet) {

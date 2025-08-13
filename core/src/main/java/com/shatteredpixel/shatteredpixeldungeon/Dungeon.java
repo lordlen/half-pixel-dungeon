@@ -303,50 +303,40 @@ public class Dungeon {
 			switch (depth) {
 				case 1:
 				case 2:
-				case 3:
-				case 4:
 					level = new SewerLevel();
 					break;
-				case 5:
+				case 3:
 					level = new SewerBossLevel();
 					break;
-				case 6:
-				case 7:
-				case 8:
-				case 9:
+				case 4:
+				case 5:
 					level = new PrisonLevel();
 					break;
-				case 10:
+				case 6:
 					level = new PrisonBossLevel();
 					break;
-				case 11:
-				case 12:
-				case 13:
-				case 14:
+				case 7:
+				case 8:
 					level = new CavesLevel();
 					break;
-				case 15:
+				case 9:
 					level = new CavesBossLevel();
 					break;
-				case 16:
-				case 17:
-				case 18:
-				case 19:
-					level = new CityLevel();
-					break;
-				case 20:
+				case 10:
+				case 11:
+                    level = new CityLevel();
+                    break;
+				case 12:
 					level = new CityBossLevel();
 					break;
-				case 21:
-				case 22:
-				case 23:
-				case 24:
+				case 13:
+				case 14:
 					level = new HallsLevel();
 					break;
-				case 25:
+				case 15:
 					level = new HallsBossLevel();
 					break;
-				case 26:
+				case 16:
 					level = new LastLevel();
 					break;
 				default:
@@ -354,10 +344,8 @@ public class Dungeon {
 			}
 		} else if (branch == 1) {
 			switch (depth) {
-				case 11:
-				case 12:
-				case 13:
-				case 14:
+				case 7:
+				case 8:
 					level = new MiningLevel();
 					break;
 				default:
@@ -424,7 +412,7 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
-		return depth == 6 || depth == 11 || depth == 16;
+		return depth == 4 || depth == 7 || depth == 10;
 	}
 	
 	public static boolean bossLevel() {
@@ -432,7 +420,7 @@ public class Dungeon {
 	}
 	
 	public static boolean bossLevel( int depth ) {
-		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+		return depth == 3 || depth == 6 || depth == 9 || depth == 12 || depth == 15;
 	}
 
 	//value used for scaling of damage values and other effects.
@@ -441,7 +429,7 @@ public class Dungeon {
 		if (Dungeon.hero != null && Dungeon.hero.buff(AscensionChallenge.class) != null){
 			return 26;
 		} else {
-			return depth;
+			return depth * 5 / 3;
 		}
 	}
 
@@ -520,75 +508,50 @@ public class Dungeon {
 	}
 
 	public static boolean posNeeded() {
-		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
-		if (posLeftThisSet <= 0) return false;
-
-		int floorThisSet = (depth % 5);
-
-		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
-		int targetPOSLeft = 2 - floorThisSet/2;
-		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
-
-		if (targetPOSLeft < posLeftThisSet) return true;
-		else return false;
-
+		// 1 str potion per floor
+		return true;
 	}
 	
 	public static boolean souNeeded() {
-		int souLeftThisSet;
-		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
-		if (souLeftThisSet <= 0) return false;
-
-		int floorThisSet = (depth % 5);
-		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < souLeftThisSet;
+		return true;
 	}
 	
 	public static boolean asNeeded() {
 		//1 AS each floor set
-		int asLeftThisSet = 1 - (LimitedDrops.ARCANE_STYLI.count - (depth / 5));
+		int asLeftThisSet = 1 - (LimitedDrops.ARCANE_STYLI.count - (depth / 3));
 		if (asLeftThisSet <= 0) return false;
 
-		int floorThisSet = (depth % 5);
+		int floorThisSet = (depth % 3);
 		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < asLeftThisSet;
+		return Random.Int(3 - floorThisSet) < asLeftThisSet;
 	}
 
 	public static boolean enchStoneNeeded(){
 		//1 enchantment stone, spawns on chapter 2 or 3
 		if (!LimitedDrops.ENCH_STONE.dropped()){
-			int region = 1+depth/5;
+			int region = 1+depth/3;
 			if (region > 1){
-				int floorsVisited = depth - 5;
-				if (floorsVisited > 4) floorsVisited--; //skip floor 10
-				return Random.Int(9-floorsVisited) == 0; //1/8 chance each floor
+				int floorsVisited = depth - 3;
+				if (floorsVisited > 2) floorsVisited--; //skip floor 6
+				return Random.Int(5-floorsVisited) == 0; //1/4 chance each floor
 			}
 		}
 		return false;
 	}
 
 	public static boolean intStoneNeeded(){
-		//one stone on floors 1-3
-		return depth < 5 && !LimitedDrops.INT_STONE.dropped() && Random.Int(4-depth) == 0;
+		//one stone on floors 1
+		return depth < 2;
 	}
 
 	public static boolean trinketCataNeeded(){
 		//one trinket catalyst on floors 1-3
-		return depth < 5 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(4-depth) == 0;
+		return depth < 3 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(2-depth) == 0;
 	}
 
 	public static boolean labRoomNeeded(){
-		//one laboratory each floor set, in floor 3 or 4, 1/2 chance each floor
-		int region = 1+depth/5;
-		if (region > LimitedDrops.LAB_ROOM.count){
-			int floorThisRegion = depth%5;
-			if (floorThisRegion >= 4 || (floorThisRegion == 3 && Random.Int(2) == 0)){
-				return true;
-			}
-		}
-		return false;
+		// 1 alchemy pot every 2nd floor of the region
+		return depth % 3 == 2;
 	}
 
 	private static final String INIT_VER	= "init_ver";
@@ -778,7 +741,7 @@ public class Dungeon {
 			}
 
 			droppedItems = new SparseArray<>();
-			for (int i=1; i <= 26; i++) {
+			for (int i=1; i <= 16; i++) {
 
 				//dropped items
 				ArrayList<Item> items = new ArrayList<>();

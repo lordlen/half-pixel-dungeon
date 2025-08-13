@@ -131,7 +131,7 @@ public class YogDzewa extends Mob {
 			for (int i = 0; i < 6; i++){
 				if (i >= 4){
 					regularSummons.add(YogRipper.class);
-				} else if (i >= Statistics.spawnersAlive){
+				} else if (i >= Statistics.spawnersAlive * 2){
 					regularSummons.add(Larva.class);
 				} else {
 					regularSummons.add( i % 2 == 0 ? YogEye.class : YogScorpio.class);
@@ -139,7 +139,7 @@ public class YogDzewa extends Mob {
 			}
 		} else {
 			for (int i = 0; i < 4; i++){
-				if (i >= Statistics.spawnersAlive){
+				if (i >= Statistics.spawnersAlive * 2){
 					regularSummons.add(Larva.class);
 				} else {
 					regularSummons.add(YogRipper.class);

@@ -190,7 +190,7 @@ public abstract class RegularLevel extends Level {
 	protected abstract Painter painter();
 	
 	protected int nTraps() {
-		return Random.NormalIntRange( 2, 3 + (Dungeon.depth/5) );
+		return Random.NormalIntRange( 2, 3 + (Dungeon.depth/3) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -208,7 +208,7 @@ public abstract class RegularLevel extends Level {
 			else                            return 10;
 		}
 
-		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
+		int mobs = 5 + Dungeon.depth % 3 + Random.Int(3);
 		if (feeling == Feeling.LARGE){
 			mobs = (int)Math.ceil(mobs * 1.33f);
 		}
@@ -506,7 +506,7 @@ public abstract class RegularLevel extends Level {
 			DriedRose rose = Dungeon.hero.belongings.getItem( DriedRose.class );
 			if (rose != null && rose.isIdentified() && !rose.cursed && Ghost.Quest.completed()){
 				//aim to drop 1 petal every 2 floors
-				int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth / 2) - rose.droppedPetals) / 3);
+				int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth) - rose.droppedPetals) / 3);
 
 				for (int i=1; i <= petalsNeeded; i++) {
 					//the player may miss a single petal and still max their rose.
@@ -569,7 +569,7 @@ public abstract class RegularLevel extends Level {
 			missingPages.remove(Document.GUIDE_SEARCHING);
 
 			//chance to find a page is 0/25/50/75/100% for floors 1/2/3/4/5+
-			float dropChance = 0.25f*(Dungeon.depth-1);
+			float dropChance = (Dungeon.depth-1) / 3.0f;
 			if (!missingPages.isEmpty() && Random.Float() < dropChance){
 				GuidePage p = new GuidePage();
 				p.page(missingPages.get(0));
@@ -587,7 +587,7 @@ public abstract class RegularLevel extends Level {
 		Random.pushGenerator( Random.Long() );
 			if (Document.ADVENTURERS_GUIDE.allPagesFound()){
 
-				int region = 1+(Dungeon.depth-1)/5;
+				int region = 1+(Dungeon.depth-1)/3;
 
 				Document regionDoc;
 				switch( region ){
@@ -621,7 +621,7 @@ public abstract class RegularLevel extends Level {
 						float percentComplete = pagesFound / totalPages;
 
 						// initial value is the first floor in a region
-						int targetFloor = 5*(region-1) + 1;
+						int targetFloor = 3*(region-1) + 1;
 						targetFloor += Math.round(3*percentComplete);
 
 						//TODO maybe drop last page in boss floor with custom logic?
