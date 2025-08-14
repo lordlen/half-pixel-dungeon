@@ -313,13 +313,13 @@ public class Shopkeeper extends NPC {
 			return Messages.get(this, "talk_ascent");
 		}
 		switch (Dungeon.depth){
-			case 6: default:
+			case 4: default:
 				return Messages.get(this, "talk_prison_intro") + "\n\n" + Messages.get(this, "talk_prison_" + Dungeon.hero.heroClass.name());
-			case 11:
+			case 7:
 				return Messages.get(this, "talk_caves");
-			case 16:
+			case 10:
 				return Messages.get(this, "talk_city");
-			case 20:
+			case 12:
 				return Messages.get(this, "talk_halls");
 		}
 	}

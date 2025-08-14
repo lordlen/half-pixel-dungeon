@@ -313,13 +313,13 @@ public class ShopRoom extends SpecialRoom {
 			//creates the given float percent of the remaining bags to be dropped.
 			//this way players who get the hourglass late can still max it, usually.
 			switch (Dungeon.depth) {
-				case 6:
+				case 4:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.20f ); break;
-				case 11:
+				case 7:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.25f ); break;
-				case 16:
+				case 10:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.50f ); break;
-				case 20: case 21:
+				case 12: case 13:
 					bags = (int)Math.ceil(( 5-hourglass.sandBags) * 0.80f ); break;
 			}
 
