@@ -143,7 +143,8 @@ public abstract class RegularLevel extends Level {
 			initRooms.add(new ShopRoom());
 
 		//force max special rooms and add one more for large levels
-		int specials = specialRooms(feeling == Feeling.LARGE);
+		// add 1 special room across the board
+		int specials = specialRooms(feeling == Feeling.LARGE) + 1;
 		if (feeling == Feeling.LARGE){
 			specials++;
 		}
@@ -203,12 +204,11 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	public int mobLimit() {
-		if (Dungeon.depth <= 1){
-			if (!Statistics.amuletObtained) return 0;
-			else                            return 10;
+		if (Dungeon.depth <= 1 && Statistics.amuletObtained){
+			return 10;
 		}
 
-		int mobs = 5 + Dungeon.depth % 3 + Random.Int(3);
+		int mobs = 3 + Dungeon.depth % 3 + Random.Int(3);
 		if (feeling == Feeling.LARGE){
 			mobs = (int)Math.ceil(mobs * 1.33f);
 		}
@@ -217,8 +217,8 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	protected void createMobs() {
-		//on floor 1, 8 pre-set mobs are created so the player can get level 2.
-		int mobsToSpawn = Dungeon.depth == 1 ? 8 : mobLimit();
+		// remove the set 8 mob limit on f1
+		int mobsToSpawn = mobLimit();
 
 		ArrayList<Room> stdRooms = new ArrayList<>();
 		for (Room room : rooms) {
@@ -376,7 +376,8 @@ public abstract class RegularLevel extends Level {
 	protected void createItems() {
 		
 		// drops 3/4/5 items 60%/30%/10% of the time
-		int nItems = 3 + Random.chances(new float[]{6, 3, 1});
+		// add 1 more items than normal
+		int nItems = 4 + Random.chances(new float[]{6, 3, 1});
 
 		if (feeling == Feeling.LARGE){
 			nItems += 2;
