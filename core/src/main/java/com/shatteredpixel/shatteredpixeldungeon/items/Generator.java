@@ -790,7 +790,7 @@ public class Generator {
 	};
 
 	public static MeleeWeapon randomWeapon(){
-		return randomWeapon(Dungeon.depth / 5);
+		return randomWeapon(Dungeon.depth / 3);
 	}
 
 	public static MeleeWeapon randomWeapon(int floorSet) {
@@ -798,7 +798,7 @@ public class Generator {
 	}
 
 	public static MeleeWeapon randomWeapon(boolean useDefaults) {
-		return randomWeapon(Dungeon.depth / 5, useDefaults);
+		return randomWeapon(Dungeon.depth / 3, useDefaults);
 	}
 	
 	public static MeleeWeapon randomWeapon(int floorSet, boolean useDefaults) {
@@ -823,7 +823,7 @@ public class Generator {
 	};
 	
 	public static MissileWeapon randomMissile(){
-		return randomMissile(Dungeon.depth / 5);
+		return randomMissile(Dungeon.depth / 3);
 	}
 
 	public static MissileWeapon randomMissile(int floorSet) {
@@ -831,7 +831,7 @@ public class Generator {
 	}
 
 	public static MissileWeapon randomMissile(boolean useDefaults) {
-		return randomMissile(Dungeon.depth / 5, useDefaults);
+		return randomMissile(Dungeon.depth / 3, useDefaults);
 	}
 
 	public static MissileWeapon randomMissile(int floorSet, boolean useDefaults) {

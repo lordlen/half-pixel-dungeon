@@ -185,19 +185,19 @@ public class SentryRoom extends SpecialRoom {
 		//1 floor set higher in probability, never cursed
 		switch (Random.Int(5)){
 			case 0: case 1: default:
-				prize = Generator.randomWeapon((Dungeon.depth / 5) + 1);
+				prize = Generator.randomWeapon((Dungeon.depth / 3) + 1);
 				if (((Weapon)prize).hasCurseEnchant()){
 					((Weapon) prize).enchant(null);
 				}
 				break;
 			case 2:
-				prize = Generator.randomMissile((Dungeon.depth / 5) + 1);
+				prize = Generator.randomMissile((Dungeon.depth / 3) + 1);
 				if (((Weapon)prize).hasCurseEnchant()){
 					((Weapon) prize).enchant(null);
 				}
 				break;
 			case 3: case 4:
-				prize = Generator.randomArmor((Dungeon.depth / 5) + 1);
+				prize = Generator.randomArmor((Dungeon.depth / 3) + 1);
 				if (((Armor)prize).hasCurseGlyph()){
 					((Armor) prize).inscribe(null);
 				}
@@ -297,7 +297,7 @@ public class SentryRoom extends SpecialRoom {
 
 		public void onZapComplete(){
 			if (hit(this, Dungeon.hero, true)) {
-				Dungeon.hero.damage(Random.NormalIntRange(2 + Dungeon.depth / 2, 4 + Dungeon.depth), new Eye.DeathGaze());
+				Dungeon.hero.damage(Random.NormalIntRange(2 + Dungeon.depth * 5 / 6, 4 + Dungeon.depth * 5 / 3), new Eye.DeathGaze());
 				if (!Dungeon.hero.isAlive()) {
 					Badges.validateDeathFromEnemyMagic();
 					Dungeon.fail(this);
@@ -310,7 +310,7 @@ public class SentryRoom extends SpecialRoom {
 
 		@Override
 		public int attackSkill(Char target) {
-			return 20 + Dungeon.depth * 2;
+			return 20 + Dungeon.depth * 2 * 5 / 3;
 		}
 
 		@Override

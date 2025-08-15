@@ -43,7 +43,7 @@ public class ArmoredStatue extends Statue {
 		super();
 
 		//double HP
-		HP = HT = 30 + Dungeon.depth * 10;
+		HP = HT = 30 + Dungeon.depth * 50 / 3;
 	}
 
 	@Override

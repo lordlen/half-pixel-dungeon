@@ -122,9 +122,9 @@ public class DungeonTileSheet {
 	public static int stitchChasmTile(int above){
 		//alt region deco has different visuals per region, but most commonly FLOOR_SP
 		if (above == Terrain.REGION_DECO_ALT){
-			if (Dungeon.depth <= 5)     return CHASM_FLOOR_SP;
-			if (Dungeon.depth <= 10)    return CHASM;
-			if (Dungeon.depth <= 20)    return CHASM_FLOOR_SP;
+			if (Dungeon.depth <= 3)     return CHASM_FLOOR_SP;
+			if (Dungeon.depth <= 6)    return CHASM;
+			if (Dungeon.depth <= 12)    return CHASM_FLOOR_SP;
 			else                        return CHASM_FLOOR;
 		}
 		return chasmStitcheable.get(above, CHASM);
@@ -152,7 +152,7 @@ public class DungeonTileSheet {
 	public static boolean waterStitcheable(int tile){
 		//alt region deco has different visuals per region, is stitcheable in demon halls
 		if (tile == Terrain.REGION_DECO_ALT){
-			if (Dungeon.depth <= 20)    return false;
+			if (Dungeon.depth <= 12)    return false;
 			else                        return true;
 		}
 		return waterStitcheable.contains(tile);

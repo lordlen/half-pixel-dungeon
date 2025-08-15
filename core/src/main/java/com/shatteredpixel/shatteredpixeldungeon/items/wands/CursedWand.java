@@ -756,7 +756,7 @@ public class CursedWand {
 
 				//starting from 10 floors up (or floor 1), each floor has 1 more weight
 				float[] depths = new float[Dungeon.depth-1];
-				int start = Math.max(1, Dungeon.depth-10);
+				int start = Math.max(1, Dungeon.depth-6);
 				for (int i = start; i < Dungeon.depth; i++) {
 					depths[i-1] = i-start+1;
 				}
@@ -1224,7 +1224,7 @@ public class CursedWand {
 		@Override
 		public boolean valid(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			//can't happen on floors where chasms aren't allowed
-			if( Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.branch != 0){
+			if( Dungeon.bossLevel() || Dungeon.depth > 15 || Dungeon.branch != 0){
 				return false;
 			}
 			return true;
