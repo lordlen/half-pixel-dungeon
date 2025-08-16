@@ -174,7 +174,7 @@ public class Notes {
 					return Icons.STAIRS_SECRETS.get();
 
 				case SHOP:
-					if (depth == 20)    return new Image(new ImpSprite());
+					if (depth == 12)    return new Image(new ImpSprite());
 					else                return new Image(new ShopkeeperSprite());
 				case ALCHEMY:
 					return Icons.get(Icons.ALCHEMY);
