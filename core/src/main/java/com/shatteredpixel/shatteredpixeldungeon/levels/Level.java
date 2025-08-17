@@ -188,6 +188,7 @@ public abstract class Level implements Bundlable {
 	public HashSet<CustomTilemap> customWalls;
 	
 	protected ArrayList<Item> itemsToSpawn = new ArrayList<>();
+	protected int numEasySpawns;
 
 	protected Group visuals;
 	protected Group wallVisuals;
@@ -211,6 +212,7 @@ public abstract class Level implements Bundlable {
 	private static final String MOBS		= "mobs";
 	private static final String BLOBS		= "blobs";
 	private static final String FEELING		= "feeling";
+	private static final String NUM_EASY_SPAWNS		= "numEasy";
 
 	public void create() {
 
@@ -307,6 +309,8 @@ public abstract class Level implements Bundlable {
 			customWalls = new HashSet<>();
 			
 		} while (!build());
+
+		numEasySpawns = (int)Math.ceil((2 + (2 * (Dungeon.depth % 3)) * (feeling == Feeling.LARGE ? 1.33f : 1.0f)));
 		
 		buildFlagMaps();
 		cleanWalls();
@@ -451,6 +455,8 @@ public abstract class Level implements Bundlable {
 			respawner = (MobSpawner) bundle.get("respawner");
 		}
 
+		numEasySpawns = bundle.getInt(NUM_EASY_SPAWNS);
+
 		buildFlagMaps();
 		cleanWalls();
 
@@ -474,6 +480,7 @@ public abstract class Level implements Bundlable {
 		bundle.put( MOBS, mobs );
 		bundle.put( BLOBS, blobs.values() );
 		bundle.put( FEELING, feeling );
+		bundle.put( NUM_EASY_SPAWNS, numEasySpawns );
 		bundle.put( "mobs_to_spawn", mobsToSpawn.toArray(new Class[0]));
 		bundle.put( "respawner", respawner );
 	}
@@ -503,16 +510,24 @@ public abstract class Level implements Bundlable {
 	}
 	
 	abstract protected boolean build();
-	
+
 	private ArrayList<Class<?extends Mob>> mobsToSpawn = new ArrayList<>();
 	
 	public Mob createMob() {
 		if (mobsToSpawn == null || mobsToSpawn.isEmpty()) {
-			mobsToSpawn = MobSpawner.getMobRotation(Dungeon.depth);
+			if(numEasySpawns > 0) {
+				mobsToSpawn = MobSpawner.getMobRotation(Dungeon.depth);
+			} else {
+				mobsToSpawn = MobSpawner.getMobRotationHard(Dungeon.depth);
+			}
 		}
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
 		ChampionEnemy.rollForChampion(m);
+		numEasySpawns--;
+		if(numEasySpawns == 0) {
+			mobsToSpawn = MobSpawner.getMobRotationHard(Dungeon.depth);
+		}
 		return m;
 	}
 

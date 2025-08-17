@@ -66,22 +66,31 @@ public class MobSpawner extends Actor {
 		return mobs;
 	}
 
+	public static ArrayList<Class<? extends Mob>> getMobRotationHard(int depth ){
+		ArrayList<Class<? extends Mob>> mobs = hardMobRotation( depth );
+		addRareMobs(depth, mobs);
+		swapMobAlts(mobs);
+		Random.shuffle(mobs);
+		return mobs;
+	}
+
 	//returns a rotation of standard mobs, unshuffled.
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
 		switch(depth){
 
 			// Sewers
 			case 1: default:
-				//2x rat, 1x snake, 2x gnoll
-				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,
-						Snake.class,
-						Gnoll.class, Gnoll.class));
+				//3x rat, 1x snake
+				return new ArrayList<>(Arrays.asList(
+						Rat.class, Rat.class, Rat.class,
+						Snake.class));
 			case 2: case 3:
-				//1x gnoll, 1x swarm, 2x crab, 2x slime
-				return new ArrayList<>(Arrays.asList(Gnoll.class,
+				//1x rat, 1x snake, 3x gnoll, 1x swarm, 1x crab
+				return new ArrayList<>(Arrays.asList(Rat.class,
+						Snake.class,
+						Gnoll.class, Gnoll.class, Gnoll.class,
 						Swarm.class,
-						Crab.class, Crab.class,
-						Slime.class, Slime.class));
+						Crab.class));
 			// Prison
 			case 4:
 				//3x skeleton, 1x thief, 1x swarm
@@ -132,6 +141,85 @@ public class MobSpawner extends Actor {
 				//2x succubus, 1x evil eye
 				return new ArrayList<>(Arrays.asList(
 						Succubus.class, Succubus.class,
+						Eye.class));
+			case 14: case 15: case 16:
+				//1x succubus, 2x evil eye, 1x scorpio
+				return new ArrayList<>(Arrays.asList(
+						Succubus.class,
+						Eye.class, Eye.class,
+						Scorpio.class));
+		}
+
+	}
+	private static ArrayList<Class<? extends Mob>> hardMobRotation( int depth ){
+		switch(depth){
+
+			// Sewers
+			case 1: default:
+				//2x rat, 1x snake, 2x gnoll
+				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,
+						Snake.class,
+						Gnoll.class, Gnoll.class));
+			case 2: case 3:
+				//1x gnoll, 1x swarm, 2x crab, 2x slime
+				return new ArrayList<>(Arrays.asList(Gnoll.class,
+						Swarm.class,
+						Crab.class, Crab.class,
+						Slime.class, Slime.class));
+			// Prison
+			case 4:
+				//3x skeleton, 1x thief, 1x DM-100, 1x guard
+				return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
+						Thief.class,
+						DM100.class,
+						Guard.class));
+			case 5: case 6:
+				//1x skeleton, 1x thief, 2x DM-100, 2x guard, 2x necromancer
+				return new ArrayList<>(Arrays.asList(Skeleton.class,
+						Thief.class,
+						DM100.class, DM100.class,
+						Guard.class, Guard.class,
+						Necromancer.class, Necromancer.class));
+
+			// Caves
+			case 7:
+				//2x bat, 2x brute, 1x shaman, 1x spinner
+				return new ArrayList<>(Arrays.asList(
+						Bat.class, Bat.class,
+						Brute.class, Brute.class,
+						Shaman.random(),
+						Spinner.class));
+			case 8: case 9:
+				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
+				return new ArrayList<>(Arrays.asList(
+						Bat.class,
+						Brute.class, Brute.class,
+						Shaman.random(), Shaman.random(),
+						Spinner.class, Spinner.class,
+						DM200.class));
+
+			// City
+			case 10:
+				//1x ghoul, 2x elemental, 1x warlock, 1x monk
+				return new ArrayList<>(Arrays.asList(
+						Ghoul.class,
+						Elemental.random(), Elemental.random(),
+						Warlock.class,
+						Monk.class));
+			case 11: case 12:
+				//1x ghoul, 1x elemental, 2x warlock, 2x monk, 1x golem
+				return new ArrayList<>(Arrays.asList(
+						Ghoul.class,
+						Elemental.random(),
+						Warlock.class, Warlock.class,
+						Monk.class, Monk.class,
+						Golem.class));
+
+			// Halls
+			case 13:
+				//1x succubus, 1x evil eye
+				return new ArrayList<>(Arrays.asList(
+						Succubus.class,
 						Eye.class));
 			case 14: case 15: case 16:
 				//1x succubus, 2x evil eye, 3x scorpio

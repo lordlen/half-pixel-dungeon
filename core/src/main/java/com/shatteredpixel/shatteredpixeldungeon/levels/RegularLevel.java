@@ -201,14 +201,14 @@ public abstract class RegularLevel extends Level {
 	protected float[] trapChances() {
 		return new float[]{1};
 	}
-	
+
 	@Override
 	public int mobLimit() {
 		if (Dungeon.depth <= 1 && Statistics.amuletObtained){
 			return 10;
 		}
 
-		int mobs = 3 + Dungeon.depth % 3 + Random.Int(3);
+		int mobs = 2 + 2 * (Dungeon.depth % 3) + Random.Int(3);
 		if (feeling == Feeling.LARGE){
 			mobs = (int)Math.ceil(mobs * 1.33f);
 		}
@@ -279,7 +279,7 @@ public abstract class RegularLevel extends Level {
 				mob = null;
 
 				//chance to add a second mob to this room, except on floor 1
-				if (Dungeon.depth > 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
+				if (mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
 					tries = 30;
