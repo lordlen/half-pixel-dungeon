@@ -512,8 +512,10 @@ public class Dungeon {
 		return true;
 	}
 	
-	public static boolean souNeeded() {
-		return true;
+	public static int souNeeded() {
+		int floorThisSet = depth % 3;
+		// 2 on f1 and 1 on f2
+		return 3 - floorThisSet;
 	}
 	
 	public static boolean asNeeded() {
