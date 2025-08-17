@@ -129,12 +129,13 @@ public class MobSpawner extends Actor {
 						Elemental.random(),
 						Warlock.class));
 			case 11: case 12:
-				//1x ghoul, 2x elemental, 1x warlock, 1x monk
+				//1x ghoul, 1x elemental, 2x warlock, 2x monk, 1x golem
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
-						Elemental.random(), Elemental.random(),
-						Warlock.class,
-						Monk.class));
+						Elemental.random(),
+						Warlock.class, Warlock.class,
+						Monk.class, Monk.class,
+						Golem.class));
 
 			// Halls
 			case 13:
