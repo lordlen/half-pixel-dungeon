@@ -80,7 +80,7 @@ public class PotionOfCleansing extends ExoticPotion {
 				b.detach();
 			}
 			if (b instanceof Hunger){
-				((Hunger) b).satisfy(Hunger.STARVING);
+				((Hunger) b).satisfy(Hunger.HUNGRY);
 			}
 		}
 		Buff.prolong(ch, Cleanse.class, duration);
