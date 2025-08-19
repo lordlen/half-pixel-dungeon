@@ -254,6 +254,16 @@ public abstract class Level implements Bundlable {
 				Dungeon.LimitedDrops.TRINKET_CATA.drop();
 				addItemToSpawn( new TrinketCatalyst());
 			}
+			if ( Dungeon.depth == 1) {
+				// Add 50/50 random weapon or armor on f1
+				Item gearToAdd;
+				if(Random.Int(2) == 0) {
+					gearToAdd = Generator.randomWeapon();
+				} else {
+					gearToAdd = Generator.randomArmor();
+				}
+				addItemToSpawn(gearToAdd);
+			}
 			
 			if (Dungeon.depth > 1) {
 				//50% chance of getting a level feeling
